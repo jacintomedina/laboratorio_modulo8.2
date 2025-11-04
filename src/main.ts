@@ -81,7 +81,6 @@ const obtenPacientesAsignadosAPediatria = (
 ): Pacientes[] => {
   return pacientes.filter((paciente) => paciente.especialidad === "Pediatra");
 };
-
 console.log(obtenPacientesAsignadosAPediatria(pacientes));
 
 // APARTADO 1B
@@ -133,9 +132,8 @@ console.log(reasignaPacientesAMedicoFamilia(pacientes));
 
 // APARTADO 4
 
-const HayPacientesDePediatria = (pacientes: Pacientes[]): boolean => {
-  return pacientes.some((paciente) => paciente.especialidad === "Pediatra");
-};
+const HayPacientesDePediatria = (pacientes: Pacientes[]): boolean =>
+  pacientes.some((paciente) => paciente.especialidad === "Pediatra");
 
 console.log(HayPacientesDePediatria(pacientes));
 
