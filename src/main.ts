@@ -97,16 +97,10 @@ console.log(obtenPacientesAsignadosAPediatriaYMenorDeDiezAnios(pacientes));
 // APARTADO 2
 
 const activarProtocoloUrgencia = (pacientes: Pacientes[]): boolean => {
-  let activarProctolo = false;
-
-  if (
-    pacientes.some(
-      (paciente: Pacientes) =>
-        paciente.frecuenciaCardiaca > 100 && paciente.temperatura > 39
-    )
-  ) {
-    activarProctolo = true;
-  }
+  let activarProctolo = pacientes.some(
+    (paciente: Pacientes) =>
+      paciente.frecuenciaCardiaca > 100 && paciente.temperatura > 39
+  );
   return activarProctolo;
 };
 
@@ -148,11 +142,29 @@ interface NumeroPacientesPorEspecialidad {
 const cuentaPacientesPorEspecialidad = (
   pacientes: Pacientes[]
 ): NumeroPacientesPorEspecialidad => {
-  let pacientesPorEspecialidad: NumeroPacientesPorEspecialidad = {
+  const pacientesPorEspecialidad: NumeroPacientesPorEspecialidad = {
     medicoDeFamilia: 0,
     pediatria: 0,
     cardiologia: 0,
   };
+
+  return pacientes.reduce((acc, paciente) => {
+    switch (paciente.especialidad) {
+      case "Medico de familia":
+        acc.medicoDeFamilia += 1;
+        break;
+      case "Pediatra":
+        acc.pediatria += 1;
+        break;
+      case "Cardiólogo":
+        acc.cardiologia += 1;
+        break;
+    }
+    return acc;
+  }, pacientesPorEspecialidad);
+};
+
+/*
   pacientes.map((pacientes) => {
     if (pacientes.especialidad === "Medico de familia") {
       pacientesPorEspecialidad.medicoDeFamilia += 1;
@@ -162,6 +174,8 @@ const cuentaPacientesPorEspecialidad = (
       pacientesPorEspecialidad.cardiologia += 1;
     }
   });
+
   return pacientesPorEspecialidad;
 };
+*/
 console.log(cuentaPacientesPorEspecialidad(pacientes));
